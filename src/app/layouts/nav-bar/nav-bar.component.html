@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-sm">
+  <div class="container-fluid">
+    <!-- Logo on the left side -->
+    <a class="navbar-brand" href="#">
+      <img src="logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+      BrandName
+    </a>
+
+    <!-- Toggler for small screens only -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Centered menu and right-aligned login -->
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+      <!-- Center the menu -->
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link active" [routerLink]="['/dashboard']" routerLinkActive="router-link-active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/bill-to-bank']" routerLinkActive="router-link-active" >Collection</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  >Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Login button on the right side -->
+      <div class="d-flex">
+        <button class="btn btn-outline-primary" type="button">Login</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<hr>

@@ -1,0 +1,118 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container-fluid">
+  <div class="row px-2 mt-4">
+    <!-- Dashboard Section -->
+    <div class="col-md-6 col-sm-12">
+      <h3 class="fw-bold">Collection</h3>
+      <p class="text-muted">Day to day</p>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="col-md-6 col-sm-12 d-flex justify-content-md-end align-items-center">
+      <label for="filter" class="me-2">Filter:</label>
+      <input type="text" id="filter" class="form-control" placeholder="Select Date Range">
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt-3">
+  <div>
+    <!-- Button to trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCollectionModal">
+      Add Collection
+    </button>
+  </div>
+</div>
+
+<!-- Collection Summary Table -->
+<div class="container-fluid mt-4">
+  <h2 class="text-center mb-4">Collection Summary</h2>
+  <table class="table table-bordered table-striped">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">S.No</th>
+        <th scope="col">Date</th>
+        <th scope="col">Total Amount</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>2024-10-01</td>
+        <td>$100.00</td>
+        <td><span class="badge bg-success">Completed</span></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>2024-10-02</td>
+        <td>$150.00</td>
+        <td><span class="badge bg-warning">Pending</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>2024-10-03</td>
+        <td>$200.00</td>
+        <td><span class="badge bg-danger">Failed</span></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>2024-10-04</td>
+        <td>$250.00</td>
+        <td><span class="badge bg-success">Completed</span></td>
+      </tr>
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Modal for Adding Collection -->
+<div class="modal fade" id="addCollectionModal" tabindex="-1" aria-labelledby="addCollectionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCollectionModalLabel">Add New Collection</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Form for Collection -->
+        <form [formGroup]="collectionForm" (ngSubmit)="onSubmit()">
+          <div formArrayName="collections" *ngFor="let collection of collections.controls; let i = index">
+            <div [formGroupName]="i" class="row mb-2 d-flex align-items-center">
+              <div class="col-md-3 col-sm-6 col-6">
+                <input type="text" formControlName="billNumber" class="form-control form-control-sm" placeholder="Bill Number" required>
+              </div>
+              <div class="col-md-3 col-sm-6 col-6">
+                <input type="text" formControlName="name" class="form-control form-control-sm" placeholder="Name" required>
+              </div>
+              <div class="col-md-3 col-sm-6 col-6">
+                <input type="number" formControlName="amount" class="form-control form-control-sm" placeholder="Amount" required>
+              </div>
+              <div class="col-md-1 col-sm-3 col-3">
+                <button type="button" class="btn btn-danger btn-sm w-100" (click)="removeEntry(i)">Del</button>
+              </div>
+              <div class="col-md-1 col-sm-3 col-3">
+                <button type="button" class="btn btn-success btn-sm w-100" (click)="addEntry()">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Collection Display -->
+          <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+              <h5 class="text-center">Total Collection: {{ totalCollection }}</h5>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="d-grid gap-2 mt-2">
+            <button type="submit" class="btn btn-primary" [disabled]="collectionForm.invalid">Submit</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
