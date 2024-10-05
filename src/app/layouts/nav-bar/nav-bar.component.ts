@@ -1,14 +1,42 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [CommonModule , RouterModule],
+  imports: [CommonModule, RouterModule, NgbDropdownModule],
   templateUrl: './nav-bar.component.html',
-  styleUrl: './nav-bar.component.css'
+  styleUrls: ['./nav-bar.component.css'], // Corrected to styleUrls
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
+  userRole: string | null = null; // To store the user role
+  userName: string| null = null;
+  isDropdownOpen: boolean = false; // To manage the dropdown visibility
 
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    if (sessionStorage.getItem('token')) {
+      this.getUserData();
+    }
+  }
+
+  getUserData() {
+    this.userRole = sessionStorage.getItem('role');
+    this.userName = sessionStorage.getItem('userName')
+  }
+
+  logOut() {
+    this.authService.logout();
+    this.userRole = null; // Reset user role on logout
+    this.userName = null;
+    this.isDropdownOpen = false; // Close dropdown
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
 }

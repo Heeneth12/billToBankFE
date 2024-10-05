@@ -25,44 +25,23 @@
   </div>
 </div>
 
-<!-- Collection Summary Table -->
 <div class="container-fluid mt-4">
-  <h2 class="text-center mb-4">Collection Summary</h2>
   <table class="table table-bordered table-striped">
     <thead class="table-light">
       <tr>
-        <th scope="col">S.No</th>
+        <th scope="col">SN</th>
         <th scope="col">Date</th>
-        <th scope="col">Total Amount</th>
+        <th scope="col">Amount Collected</th>
         <th scope="col">Status</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>2024-10-01</td>
-        <td>$100.00</td>
-        <td><span class="badge bg-success">Completed</span></td>
+      <tr *ngFor="let collection of collectionsBySalesman">
+        <td>{{ collection.billNumber }}</td>
+        <td>{{ collection.date }}</td>
+        <td>{{ collection.totalAmount }}</td>
+        <td>Success</td>
       </tr>
-      <tr>
-        <td>2</td>
-        <td>2024-10-02</td>
-        <td>$150.00</td>
-        <td><span class="badge bg-warning">Pending</span></td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>2024-10-03</td>
-        <td>$200.00</td>
-        <td><span class="badge bg-danger">Failed</span></td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>2024-10-04</td>
-        <td>$250.00</td>
-        <td><span class="badge bg-success">Completed</span></td>
-      </tr>
-      <!-- Add more rows as needed -->
     </tbody>
   </table>
 </div>

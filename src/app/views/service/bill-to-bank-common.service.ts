@@ -31,5 +31,18 @@ export class BillToBankCommonService {
   }
 
 
+    // Get collections by Salesman ID
+    getCollectionsBySalesmanId(salesmanId: number): Observable<any> {
+      const url = `${this.apiUrl}/collection/day-wise`;
+      return this.http.get(url);
+    }
+  
+    // Create a new collection
+    createCollection(collections: any[]): Observable<any> {
+      const url = `${this.apiUrl}/collection/create`;
+      return this.http.post(url, collections);
+    }
+
+
 
 }

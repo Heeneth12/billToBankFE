@@ -1,37 +1,47 @@
 <nav class="navbar navbar-expand-sm">
   <div class="container-fluid">
-    <!-- Logo on the left side -->
     <a class="navbar-brand" href="#">
-      <img src="logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-      BrandName
+      <img  src="assets/img/logo.jpg" alt="Logo" width="42" height="42" >
+      <span class="fw-bold text-secondary">Bill 2 Bank</span>
     </a>
 
-    <!-- Toggler for small screens only -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Centered menu and right-aligned login -->
     <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
-      <!-- Center the menu -->
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
           <a class="nav-link active" [routerLink]="['/dashboard']" routerLinkActive="router-link-active">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/bill-to-bank']" routerLinkActive="router-link-active" >Collection</a>
+          <a class="nav-link" [routerLink]="['/bill-to-bank']" routerLinkActive="router-link-active">Collection</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"  >Pricing</a>
+          <a class="nav-link">Pricing</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Contact</a>
         </li>
       </ul>
 
-      <!-- Login button on the right side -->
       <div class="d-flex">
-        <button class="btn btn-outline-primary" type="button">Login</button>
+        <ng-container *ngIf="!userRole; else loggedIn">
+          <button class="btn btn-outline-primary btn-sm" type="button">Login</button>
+        </ng-container>
+        <ng-template #loggedIn>
+          <div class="col">
+            <div ngbDropdown class="d-inline-block">
+              <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                {{userName}}
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem>{{userRole}}</button>
+                <button (click)="logOut()" ngbDropdownItem>Logout</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>

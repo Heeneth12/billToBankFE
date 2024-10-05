@@ -40,9 +40,10 @@ export class LoginPageComponent {
         next: (response) => {
           console.log('Login successful', response);
           sessionStorage.setItem('token', response.token);
+          sessionStorage.setItem('userId', response.userId);
+          sessionStorage.setItem('role', response.role);
+          sessionStorage.setItem('userName', response.userName);
           this.router.navigate(['/dashboard']);
-          
-
         },
         error: (error) => {
           console.error('Login failed', error);
@@ -69,12 +70,10 @@ export class LoginPageComponent {
       this.billToBankCommonService.registerUser(newUser).subscribe({
         next: (response) => {
           console.log('Registration successful', response);
-          alert('Registration successful');
           this.toggleMode(); // Switch to login mode after successful registration
         },
         error: (error) => {
           console.error('Registration failed', error);
-          alert('Registration failed. Please try again.');
         }
       });
     }

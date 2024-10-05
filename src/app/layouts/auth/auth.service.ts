@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  constructor( private router: Router) { }
 
   // Method to check if the user is authenticated
   isAuthenticated(): boolean {
@@ -17,5 +18,6 @@ export class AuthService {
   // Method to log out the user (remove the token)
   logout(): void {
     sessionStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }
