@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavBarComponent } from '../../layouts/nav-bar/nav-bar.component';
 import {
   FormBuilder,
@@ -17,10 +17,13 @@ import { BillToBankCommonService } from '../service/bill-to-bank-common.service'
   templateUrl: './bill-to-bank.component.html',
   styleUrl: './bill-to-bank.component.css',
 })
-export class BillToBankComponent {
+export class BillToBankComponent implements OnInit {
+  userId: number | null = null;
+  userRole: string | null = '';
   collectionForm: FormGroup;
   totalCollection: number = 0;
   collectionsBySalesman: any[] = [];
+  allSalesmancollections: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -32,12 +35,22 @@ export class BillToBankComponent {
   }
 
   ngOnInit() {
-    this.fetchCollectionsBySalesman();
+    const id = sessionStorage.getItem('userId');
+    const role = sessionStorage.getItem('role');
+    if (id) {
+      this.userId = Number(id);
+      this.userRole = role;
+      if (this.userRole == 'admin') {
+        this.fetchAllSalesmancollections();
+      } else {
+        this.fetchCollectionsBySalesman(this.userId);
+      }
+    }
   }
 
   // Getter for the form array
   get collections(): FormArray {
-    return this.collectionForm.get('collections') as FormArray; // Use type assertion
+    return this.collectionForm.get('collections') as FormArray;
   }
 
   // Function to create a new entry form group
@@ -65,16 +78,17 @@ export class BillToBankComponent {
   // Function to handle form submission
   onSubmit(): void {
     if (this.collectionForm.valid) {
-      const formValue = this.collectionForm.value.collections.map((entry: any) => ({
-        billNumber: entry.billNumber,
-        billName: entry.name,
-        amountCollected: entry.amount,
-        salesmanId: 1, // Replace with dynamic salesman ID
-        salesmanName: 'John Doe',
-        createdBy: 'admin',
-        createTime : new Date,
-
-      }));
+      const formValue = this.collectionForm.value.collections.map(
+        (entry: any) => ({
+          billNumber: entry.billNumber,
+          billName: entry.name,
+          amountCollected: entry.amount,
+          salesmanId: this.userId,
+          salesmanName: 'John Doe',
+          createdBy: 'admin',
+          createTime: new Date(),
+        }),
+      );
 
       this.billToBankCommonService.createCollection(formValue).subscribe(
         (response) => {
@@ -92,19 +106,29 @@ export class BillToBankComponent {
   }
 
   // Function to get collections by salesman ID
-  fetchCollectionsBySalesman(): void {
-    const salesmanId = 3; // Replace with dynamic salesman ID if needed
-    this.billToBankCommonService
-      .getCollectionsBySalesmanId(salesmanId)
-      .subscribe(
-        (response: any[]) => {
-          this.collectionsBySalesman = response;
-          console.log('Collections fetched:', response);
-        },
-        (error) => {
-          console.error('Error fetching collections', error);
-        },
-      );
+  fetchCollectionsBySalesman(user_id: number): void {
+    this.billToBankCommonService.getCollectionsBySalesmanId(user_id).subscribe(
+      (response: any[]) => {
+        this.collectionsBySalesman = response;
+        console.log('Collections fetched:', response);
+      },
+      (error) => {
+        console.error('Error fetching collections', error);
+      },
+    );
+  }
+
+  // Function to get collections by salesman ID
+  fetchAllSalesmancollections(): void {
+    this.billToBankCommonService.getAllCollectionsBySalesman().subscribe(
+      (response: any[]) => {
+        this.allSalesmancollections = response;
+        console.log('Collections fetched:', response);
+      },
+      (error) => {
+        console.error('Error fetching collections', error);
+      },
+    );
   }
 
   // Function to calculate the total amount collected

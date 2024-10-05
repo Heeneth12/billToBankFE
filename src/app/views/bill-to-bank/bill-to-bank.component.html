@@ -25,11 +25,11 @@
   </div>
 </div>
 
-<div class="container-fluid mt-4">
+<div *ngIf="userRole != 'Admin'" class="container-fluid mt-4">
   <table class="table table-bordered table-striped">
     <thead class="table-light">
       <tr>
-        <th scope="col">SN</th>
+        <th scope="col">S</th>
         <th scope="col">Date</th>
         <th scope="col">Amount Collected</th>
         <th scope="col">Status</th>
@@ -37,6 +37,27 @@
     </thead>
     <tbody>
       <tr *ngFor="let collection of collectionsBySalesman">
+        <td>{{ collection.billNumber }}</td>
+        <td>{{ collection.date }}</td>
+        <td>{{ collection.totalAmount }}</td>
+        <td>Success</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="userRole == 'Admin'" class="container-fluid mt-4">
+  <table class="table table-bordered table-striped">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">SA</th>
+        <th scope="col">Date</th>
+        <th scope="col">Amount Collected</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let collection of allSalesmancollections">
         <td>{{ collection.billNumber }}</td>
         <td>{{ collection.date }}</td>
         <td>{{ collection.totalAmount }}</td>

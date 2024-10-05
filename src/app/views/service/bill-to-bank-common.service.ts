@@ -33,6 +33,11 @@ export class BillToBankCommonService {
 
     // Get collections by Salesman ID
     getCollectionsBySalesmanId(salesmanId: number): Observable<any> {
+      const url = `${this.apiUrl}/collection/day-wise/${salesmanId}`;
+      return this.http.get(url);
+    }
+    // Get All collections by Salesman ID
+    getAllCollectionsBySalesman(): Observable<any> {
       const url = `${this.apiUrl}/collection/day-wise`;
       return this.http.get(url);
     }
