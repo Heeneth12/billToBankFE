@@ -18,7 +18,9 @@ export class DashboardComponent {
 
   chartOptions: Highcharts.Options = {
     chart: {
-      type: 'line' // Set the chart type globally
+      type: 'line', // Set the chart type globally
+      backgroundColor : '#F2F2F2'
+      
     },
     title: {
       text: 'Daily Money Collection'

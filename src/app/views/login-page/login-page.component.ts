@@ -78,4 +78,13 @@ export class LoginPageComponent {
       });
     }
 
+
+    set passwordModel(value: string) {
+      if (this.isLoginMode) {
+        this.loginPassword = value;
+      } else {
+        this.registerPassword = value;
+      }
+    }
+
 }

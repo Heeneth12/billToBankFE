@@ -40,7 +40,8 @@ export class BillToBankComponent implements OnInit {
     if (id) {
       this.userId = Number(id);
       this.userRole = role;
-      if (this.userRole == 'admin') {
+      console.log(this.userRole)
+      if (this.userRole == 'Admin') {
         this.fetchAllSalesmancollections();
       } else {
         this.fetchCollectionsBySalesman(this.userId);

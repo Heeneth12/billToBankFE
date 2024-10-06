@@ -4,8 +4,8 @@
     <div class="row px-2 mt-4">
         <!-- Dashboard Section -->
         <div class="col-md-6 col-sm-12">
-            <h3 class="fw-bold">Dashboard</h3>
-            <p class="text-muted">Monthly review</p>
+            <img class="px-2" src="assets/img/Dashboard.png" alt="" width="180">
+            <p class="text-muted py-2 px-2">Monthly review</p>
         </div>
 
         <!-- Filter Section -->
@@ -56,11 +56,10 @@
 
 
 <div class="container-fluid mt-4">
-    <h4>Daily Money Collection Chart</h4>
     <div class="row">
       <!-- 60% Width Container for Chart -->
-      <div class="col-md-7 col-sm-12">
-        <div class="container shadow rounded">
+      <div class="col-md-7 col-sm-12 my-1">
+        <div class="container shadow rounded" style="background-color: #F2F2F2;">
           <highcharts-chart 
             [Highcharts]="Highcharts"
             [options]="chartOptions"
@@ -69,8 +68,8 @@
         </div>
       </div>
       <!-- 40% Width Container for Latest Day Collection Box -->
-      <div class="col-md-5 col-sm-12 d-flex align-items-center justify-content-center">
-        <div class="container  p-4 shadow rounded bg-light" style="height: 400px;">
+      <div class="col-md-5 col-sm-12 d-flex align-items-center justify-content-center my-1">
+        <div class="container  p-4 shadow rounded" style="height: 400px;background-color: #F2F2F2;">
           <h3 class="text-center">Latest Day Collection</h3>
           <p class="text-center">Total: $500</p>
           <!-- Add more content for the latest collection data here -->
